@@ -57,8 +57,9 @@ public protocol Styler {
     /// - Parameters:
     ///     - str: the item content.
     ///     - prefixLength: the character length of the number or bullet prefix.
+    ///     - nestDepth: the zero indexed nesting depth of the parent list node.
 
-    func style(item str: NSMutableAttributedString, prefixLength: Int)
+    func style(item str: NSMutableAttributedString, prefixLength: Int, nestDepth: Int)
 
     /// Styles the content of the code block in the given string.
     ///

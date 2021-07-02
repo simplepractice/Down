@@ -81,7 +81,7 @@ open class DownStyler: Styler {
         str.setAttributes(listPrefixAttributes)
     }
 
-    open func style(item str: NSMutableAttributedString, prefixLength: Int) {
+    open func style(item str: NSMutableAttributedString, prefixLength: Int, nestDepth: Int) {
         let paragraphRanges = str.paragraphRanges()
 
         guard let leadingParagraphRange = paragraphRanges.first else { return }
