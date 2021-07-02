@@ -75,7 +75,8 @@ extension AttributedStringVisitor: Visitor {
     }
 
     public func visit(item node: Item) -> NSMutableAttributedString {
-        let result = visitChildren(of: node).joined
+        let children = visitChildren(of: node)
+        guard let result = children.first else { return .empty }
 
         let prefix = listPrefixGenerators.last?.next() ?? "•"
         let attributedPrefix = "\(prefix)\t".attributed
@@ -83,7 +84,8 @@ extension AttributedStringVisitor: Visitor {
         result.insert(attributedPrefix, at: 0)
 
         if node.hasSuccessor { result.append(.paragraphSeparator) }
-        styler.style(item: result, prefixLength: (prefix as NSString).length)
+        styler.style(item: result, prefixLength: (prefix as NSString).length, nestDepth: node.nestDepth)
+        result.append(children.dropFirst().joined)
         return result
     }
 
